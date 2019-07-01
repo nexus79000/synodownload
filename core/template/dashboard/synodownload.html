@@ -1,0 +1,112 @@
+<div class="eqLogic eqLogic-widget noresize synodownload_widget synodownload" 
+	data-eqType="#eqType#" 
+    data-translate-category="#translate_category#" 
+    data-category="#category#" 
+    data-tags="#tags#" 
+    data-version="#version#" 
+    style="
+        border:#border#;
+        border-radius:#border-radius#;
+        background-color: #background-color#;
+        color: #color#;
+        #style#;" 
+	data-syno-id="#synoid#"
+    data-eqLogic_id="#id#" 
+	data-eqLogic_uid="#uid#"    >
+    <link rel="stylesheet" href="plugins/synodownload/core/template/dashboard/css/synodownload.css" />
+	
+    <center class="widget-name">
+		<span class="reportModeVisible" style="font-size : 1.2em;display:none;">#name_display# <span style="font-size: 0.85em;">#object_name#</span></span>
+		<a href="#eqLink#" class="reportModeHidden" style="font-size : 1.2em;#hideEqLogicName#">#name_display# <span style="font-size: 0.85em;">#object_name#</span></a>
+	</center>
+
+	<div class="listDownload" > 
+		
+		#div_Download#	
+
+	</div> 
+	<div class="AffVitesses" > 
+		<span class="cmd search pull-left cursor" title="Rechercher"><i class="fas fa-search"></i></span>
+		<span class="cmd adddl pull-left cursor" title="Ajouter"><i class="fas fa-plus"></i></span>
+		<span class="cmd chevron-left" ><i class="fas fa-chevron-left"></i></span>
+		<span >Vitesses - UL : #vitUL#/s - DL : #vitDL#/s</span>
+		<span class="cmd chevron-right" ><i class="fas fa-chevron-right"></i></span>
+		<span class="cmd condition pull-right cursor" data-cmd_id="#cmd_condition_id#" data-act="resume" title="Tout reprendre"><i class="fas fa-play"></i></span>
+		<span class="cmd condition pull-right cursor" data-cmd_id="#cmd_condition_id#" data-act="pause" title="Tout mettre en pause"><i class="fas fa-pause"></i></span>
+		<span class="cmd condition pull-right cursor" data-cmd_id="#cmd_condition_id#" data-act="delete" title="Tout Supprimer"><i class="fa maison-poubelle"></i></span>
+	</div><!-- repere Fin vitesse-->
+	
+	<!-- <span class="statusCmd" ></span> -->
+		
+	<script>
+	if ('#cmd_refresh_id#' != ''){
+		$('.eqLogic[data-eqLogic_uid=#uid#] .refresh').on('click', function () {
+			jeedom.cmd.execute({id: '#cmd_refresh_id#'});
+		});
+	}else{
+		$('.eqLogic[data-eqLogic_uid=#uid#] .refresh').remove();
+	}
+
+	$('.synodownload[data-eqLogic_id=#id#] .search').on('click', function() {
+		$('#md_modal2').dialog({title: "Recherche"});
+		$('#md_modal2').load('index.php?v=d&plugin=synodownload&modal=search_dl.syno&id=#id#').dialog('open');
+	});
+
+	$('.synodownload[data-eqLogic_id=#id#] .adddl').on('click', function() {
+		$('#md_modal2').dialog({title: "Ajout téléchargement"});
+		$('#md_modal2').load('index.php?v=d&plugin=synodownload&modal=add_dl.syno&id=#id#').dialog('open');
+	});
+	
+	$('.synodownload[data-eqLogic_id=#id#] .actdownload').on('click', function() {
+		jeedom.cmd.execute({id: $(this).data('cmd_id'), value:{dbid:$(this).data('dbid')}});
+	});
+	
+	$('.synodownload[data-eqLogic_id=#id#] .condition').on('click', function() {
+		jeedom.cmd.execute({id: $(this).data('cmd_id'), value:{title:$(this).data('act')}});
+	});
+	
+	
+	var nb_div#id#=#nb_div_Download#;
+	$('.synodownload[data-eqLogic_id=#id#] .chevron-left').on('click', function() {
+		for (var iter = nb_div#id#; iter =>1; iter--) {
+			if($('.synodownload[data-eqLogic_id=#id#] .panel_list' + iter ).is(':visible')) {
+				$('.synodownload[data-eqLogic_id=#id#] .panel_list' + iter ).hide();
+				var div_next = iter-1;
+				if (div_next < 1){
+					div_next = nb_div#id#;
+				}
+				//$('#div_searchsongSynoAlert').showAlert({message: 'iter : '+ iter+' div_next'+div_next, level: 'danger'});
+				$('.synodownload[data-eqLogic_id=#id#] .panel_list' + div_next ).show();
+				return;
+			}
+
+		}
+	});
+	
+	$('.synodownload[data-eqLogic_id=#id#] .chevron-right').on('click', function() {
+		for (var iter = 1; iter <= nb_div#id#; iter++) {
+			if($('.synodownload[data-eqLogic_id=#id#] .panel_list' + iter ).is(':visible')) {
+				$('.synodownload[data-eqLogic_id=#id#] .panel_list' + iter ).hide();
+				var div_next = iter+1;
+				if (div_next > nb_div#id#){
+					div_next = 1;
+				}
+				//$('#div_searchsongSynoAlert').showAlert({message: 'iter : '+ iter+' div_next'+div_next, level: 'danger'});
+				$('.synodownload[data-eqLogic_id=#id#] .panel_list' + div_next ).show();
+				return;
+			}
+
+		}
+	});
+	
+/*	if ('#refresh_id#' != ''){
+		$('.eqLogic[data-eqLogic_uid=#uid#] .refresh').on('click', function () {
+			jeedom.cmd.execute({id: '#refresh_id#'});
+		});
+	}else{
+		$('.eqLogic[data-eqLogic_uid=#uid#] .refresh').remove();
+	}
+*/
+	</script>
+</div>
+
