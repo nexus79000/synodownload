@@ -60,7 +60,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">{{Nom station}}</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="eqLogicAttr form-control" data-l1key="id" style="display : none;" />
+                                        <input type="text" class="eqLogicAttr form-control" data-l1key="id" style="display : none;" id="id" />
                                         <input type="text" class="eqLogicAttr form-control" data-l1key="name" placeholder="{{Nom station}}"/>
                                     </div>
                                 </div>
@@ -108,8 +108,13 @@ $eqLogics = eqLogic::byType($plugin->getId());
                                     <div class="col-sm-3">
                                         <input type="password" class="eqLogicAttr configuration form-control" data-l1key="configuration" data-l2key="synoPwd" placeholder="Mot de passe"/>
                                     </div>
-                                </div>
-                        
+                                </div>                                
+                                <!--<div class="form-group">
+                                    <label class="col-sm-3 control-label">{{Double authentification (optionnelle)}}</label>
+                                    <div class="col-sm-3">
+                                        <input type="password" class="eqLogicAttr configuration form-control" data-l1key="configuration" data-l2key="syno2auth" placeholder="Clé de sécurité"/>
+                                    </div>
+                                </div>-->
                             </fieldset>
                         </form>
                     </div>

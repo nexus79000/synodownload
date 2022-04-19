@@ -204,13 +204,20 @@ class synodownload extends eqLogic {
 
 	public function preSave() {
 		$this->setCategory('multimedia', 1);
-
+        $this->setLogicalId('SynoDownload_'.$this->getid());
 	}
 
 	public function postSave() {
-	
-	
-		
+        
+        // Création de la session initial	
+		/*if ($this->getConfiguration('synoUser')!='' && $this->getConfiguration('synoPwd')!='' ) {
+			if ( cache::byKey('SYNO.Download.' .$this->getId(). '.sid') ){
+				self::createURL();
+				self::updateAPIs();
+				self::getSid($this);
+			}
+			self::pull($this->getId());
+		}*/
 	}
 	
 	public function createCmd($_id) {
@@ -525,7 +532,7 @@ class synodownload extends eqLogic {
 		$apiVersion = $arrAPI['version'];
 		
 		//Login and creating SID
-		$fURL = $url.'/webapi/'. $apiPath .'?api=' . $apiName . '&method=Login&version='. $apiVersion .'&account='.$login.'&passwd='.$pass.'&session=DownloadStation&format=sid';
+		$fURL = $url.'/webapi/'. $apiPath .'?api=' . $apiName . '&method=login&version='. $apiVersion .'&account='.$login.'&passwd='.$pass.'&session=DownloadStation&format=sid';
 		//$json = file_get_contents($fURL);
 		$json = synodownload::getCurlPage($fURL);
 		$obj = json_decode($json);
@@ -927,19 +934,8 @@ class synodownload extends eqLogic {
 		$replace['#text_color#'] = $this->getConfiguration('text_color');
 		$replace['#version#'] = $_version;
         $replace['#synoid#'] = $this->getlogicalId();
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
 
-		
+        
 		$cmd_refresh=$this->getCmd('action','refresh');
 		$replace['#cmd_' . $cmd_refresh->getLogicalId() . '_id#'] = $cmd_refresh->getId();
 		

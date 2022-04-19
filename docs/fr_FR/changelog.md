@@ -1,6 +1,11 @@
 ﻿Change Log
 ==========
 
+version 8
+----------
+* Mise à jour du widget
+* Correction bug (DSM 7.0)
+
 version 7
 ----------
 * Passage v4
